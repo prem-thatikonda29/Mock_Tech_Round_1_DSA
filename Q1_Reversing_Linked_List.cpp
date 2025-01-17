@@ -7,7 +7,7 @@ struct Node {
     Node* next;
 };
 
-// Creating a new node
+// Create a new node
 Node* createNode(int data) {
     Node* newNode = new Node();
     if (!newNode) {
@@ -19,7 +19,7 @@ Node* createNode(int data) {
     return newNode;
 }
 
-// Inserting a new node at the end
+// Insert a node at the end
 void insertNode(Node** head, int data) {
     Node* newNode = createNode(data);
     if (*head == NULL) {
@@ -33,15 +33,10 @@ void insertNode(Node** head, int data) {
     lastNode->next = newNode;
 }
 
-// Printing the linked list
+// Print linked list
 void printList(Node* head) {
     while (head) {
-        if(head->next == NULL){
-            cout << head->data << " -> NULL";
-        }
-        else{
-            cout << head->data << " -> ";
-        }
+        cout << head->data << " ";
         head = head->next;
     }
     cout << endl;
@@ -64,7 +59,8 @@ bool detectCycle(Node* head) {
     return false;
 }
 
-// Removing the cycle
+// Remove cycle
+// Remove cycle
 void removeCycle(Node* head) {
     if (head == NULL || head->next == NULL) {
         return;
@@ -84,6 +80,8 @@ void removeCycle(Node* head) {
     // Check if a cycle exists
     if (slow == fast) {
         slow = head;
+
+        // If the cycle starts at the head
         if (slow == fast) {
             while (fast->next != slow) {
                 fast = fast->next;
@@ -134,22 +132,19 @@ int main() {
     insertNode(&head, 4);
     insertNode(&head, 5);
 
-    // head->next->next->next->next->next = head->next->next;
+    // Create a cycle: last node points to the third node
+    head->next->next->next->next->next = head->next->next;
 
-    cout << "Original Linked List: ";
-    head = reverseList(head);
-    cout << "Reversed Linked List: ";
-    printList(head);
-
-    if(detectCycle(head)){
-        cout << "Cycle detected in the linked list" << endl;
-    }
-    else{
-        cout << "No cycle detected in the linked list" << endl;
+    if (detectCycle(head)) {
+        cout << "Cycle detected in the linked list." << endl;
         removeCycle(head);
-        cout << "Cycle removed from the linked list" << endl;
-        // printList(head);
+        cout << "Cycle removed from the linked list." << endl;
+    } else {
+        cout << "No cycle detected in the linked list." << endl;
     }
+
+    cout << "Linked List after removing cycle: ";
+    printList(head);
 
     // Free allocated memory
     freeList(head);
