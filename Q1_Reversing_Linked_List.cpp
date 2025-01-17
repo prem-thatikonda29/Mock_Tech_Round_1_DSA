@@ -60,7 +60,6 @@ bool detectCycle(Node* head) {
 }
 
 // Remove cycle
-// Remove cycle
 void removeCycle(Node* head) {
     if (head == NULL || head->next == NULL) {
         return;
